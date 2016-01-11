@@ -21,6 +21,9 @@ function searchingBooksFirst(q){
 			createPage(result.start, result.books);
 			readyPage();
 			$('.main').addClass('after').removeClass('begin');
+			if(allPageNum > 1){
+				searchingBooks(q, 6);
+			}
 		},  
 		timeout:3000  
 	});
@@ -30,10 +33,10 @@ function searchingBooks(q, start){
 	$.ajax({  
 		url:"https://api.douban.com/v2/book/search",  
 		dataType:'jsonp',  
-		data:{q: q, start: start},  
+		data:{q: q, start: start, count: 6},  
 		// jsonp:'callback',  
 		success:function(result){
-			console.info(result)
+			createPage(start/6, result.books);
 		},  
 		timeout:3000  
 	});
@@ -41,7 +44,7 @@ function searchingBooks(q, start){
 //生成一页
 function createPage(num, result){
 	var img = [];
-	$('.myWindow').append('<div class="myPage" id="page'+num+'"><div class="bookshelf"></div></div>');
+	$('.myWindow').append('<div class="myPage" id="page'+num+'" style="left: '+num*1000+'px"><div class="bookshelf"></div></div>');
 	for(var i=0; i<result.length; i++){
 		var html = '<figure>';
 		html += '<div class="book" data-book="'+result[i]['isbn13']+'"></div>';
@@ -128,6 +131,12 @@ function changePage(type){
 		pageNum++;
 		if(pageNum == allPageNum-1) $('.main .bb-nav-next').hide();
 		if(pageNum == 1) $('.main .bb-nav-prev').show();
+		console.info(pageNum);
+		if(pageNum != allPageNum-1){
+			if($('#page'+(pageNum+1)).length == 0){
+				searchingBooks('django', pageNum*6+6);
+			}
+		}
 	}else{
 		pageNum--;
 		if(pageNum == 0) $('.main .bb-nav-prev').hide();
