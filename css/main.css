@@ -12,7 +12,7 @@ body {
 }
 
 .main{
-	height: 496px;
+	height: 524px;
 	overflow: hidden;
 	position: absolute;
 	background: rgba(255, 255, 255, 0.3);
@@ -35,7 +35,7 @@ body {
 
 .myPage {
 	width: 1000px;
-	height: 496px;
+	height: 524px;
 	position: absolute;
 }
 
@@ -46,7 +46,7 @@ body {
 
 .after {
 	top: 50%;
-	margin-top: -248px;
+	margin-top: -262px;
 	opacity: 1;
 }
 /* Book navigation */

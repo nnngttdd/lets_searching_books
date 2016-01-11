@@ -144,7 +144,7 @@ body {
 .bookshelf figcaption h2 {
     margin: 1em 0 0 0;
     font-weight: 300;
-    font-size: 1.0em;
+    font-size: 0.8em;
     font-family: "Abril Fatface", serif;
 }
 
@@ -155,7 +155,7 @@ body {
     padding: 1em 0 0 0;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 0.5em;
     font-family: "Lato", sans-serif;
 }
@@ -372,22 +372,65 @@ body {
     font-family: "Cardo", serif;
 }
 
-.page-layout-3:last-child {
+.page-layout-3 {
     position: absolute;
-    right: 0;
     width: 50%;
     height: 100%;
-    background: url(../img/portrait.jpg) no-repeat top left;
-    background-size: cover;
 }
 
-.page-layout-3 div { padding: 10% }
+.page-layout-3:first-child {
+    left: 0;
+    /*background: url(../img/portrait.jpg) no-repeat top left;
+    background-size: cover;*/
+}
+
+.page-layout-3 img {
+    width: 303px;
+    height: 438px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -219px;
+    margin-left: -151.5px;
+}
+
+.page-layout-3:last-child {
+    right: 0;
+}
+
+.page-layout-3 div {
+     padding: 10% 
+ }
+
+ .page-layout-3 div a{
+    color: black;
+ }
+
+.page-layout-3 div a:hover{
+    color: #ddd;
+    overflow: hidden;
+}
+
+.page-layout-3 div span{
+    display: inline-block;
+    padding: 5px;
+    background: #ddd;
+    margin-top: 5px;
+    margin-right: 5px;
+    float: left;
+}
+
+.page-layout-3 .clear {
+    clear: both;
+    padding: 0px;
+}
+
 
 .page-layout-3 h3 {
     margin: 0;
     text-transform: uppercase;
     font-weight: 400;
-    font-size: 14em;
+    font-size: 3em;
     font-family: "Six Caps", sans-serif;
 }
 
