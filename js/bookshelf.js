@@ -8,8 +8,7 @@
  * Copyright 2014, Codrops
  * http://www.codrops.com
  */
-(function() {
-
+var bookShelf = function(options) {
 	var supportAnimations = 'WebkitAnimation' in document.body.style ||
 			'MozAnimation' in document.body.style ||
 			'msAnimation' in document.body.style ||
@@ -25,19 +24,22 @@
 		animEndEventName = animEndEventNames[ Modernizr.prefixed( 'animation' ) ],
 		scrollWrap = document.getElementById( 'scroll-wrap' ),
 		docscroll = 0,
-		books = document.querySelectorAll( '#bookshelf > figure' );
+		// books = document.querySelectorAll( '.bookshelf > figure' );
+		books = options.doms;
+		// console.info(books)
 
 	function scrollY() {
 		return window.pageYOffset || window.document.documentElement.scrollTop;
 	}
 
-	function Book( el ) {
+	function Book( el, i ) {
 		this.el = el;
 		this.book = this.el.querySelector( '.book' );
 		this.ctrls = this.el.querySelector( '.buttons' );
 		this.details = this.el.querySelector( '.details' );
 		// create the necessary structure for the books to rotate in 3d
-		this._layout();
+		// console.info(i)
+		this._layout(options.imgs[i]);
 
 		this.bbWrapper = document.getElementById( this.book.getAttribute( 'data-book' ) );
 		if( this.bbWrapper ) {
@@ -46,9 +48,15 @@
 		this._initEvents();
 	}
 
-	Book.prototype._layout = function() {
+	Book.prototype._layout = function(options) {
+		// console.info(options)
 		if( Modernizr.csstransforms3d ) {
-			this.book.innerHTML = '<div class="cover"><div class="front"></div><div class="inner inner-left"></div></div><div class="inner inner-right"></div>';
+			if(options){
+				this.book.innerHTML = '<div class="cover"><div class="front"><img height="139px" width="106px" src="'+options+'"/></div><div class="inner inner-left"></div></div><div class="inner inner-right"></div>';
+			}else{
+				this.book.innerHTML = '<div class="cover"><div class="front"></div><div class="inner inner-left"></div></div><div class="inner inner-right"></div>';
+			}
+			
 			var perspective = document.createElement( 'div' );
 			perspective.className = 'perspective';
 			perspective.appendChild( this.book );
@@ -151,11 +159,11 @@
 	}
 
 	function init() {
-		[].slice.call( books ).forEach( function( el ) {
-			new Book( el );
+		[].slice.call( books ).forEach( function( el, i ) {
+			new Book( el, i );
 		} );
 	}
 
 	init();
 
-})();
+};

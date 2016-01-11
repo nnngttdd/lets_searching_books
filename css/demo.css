@@ -13,8 +13,8 @@
 *, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 body {
-	font-family: 'Lato', Arial, sans-serif;
-	color: #64696a;
+	font-family: 'Lato', Arial, sans-serif, '微软雅黑';
+	color: black;
 	background: #fff;
 }
 
