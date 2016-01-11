@@ -1,39 +1,41 @@
 
 var allPageNum = 0;
 var pageNum = 0;
+var searchInfor = '重逢';
 
 searchingBooksFirst('django')
 
 //通过豆瓣api搜索图书
 //第一次查询
-function searchingBooksFirst(q){
+function searchingBooksFirst(){
 	var pageNum = 0;
 	$.ajax({  
 		url:"https://api.douban.com/v2/book/search",  
 		dataType:'jsonp',  
-		data:{q: q, count: 6},  
+		data:{q: searchInfor, count: 6},  
 		// jsonp:'callback',  
 		success:function(result){
 			// console.info(result)
 			$('.myWindow').empty();
 			$('.bb-custom-wrapper').remove();
 			allPageNum = Math.ceil(result.total/6);
+			console.info(allPageNum)
 			createPage(result.start, result.books);
 			readyPage();
 			$('.main').addClass('after').removeClass('begin');
 			if(allPageNum > 1){
-				searchingBooks(q, 6);
+				searchingBooks(6);
 			}
 		},  
 		timeout:3000  
 	});
 }
 //陆续查询
-function searchingBooks(q, start){
+function searchingBooks(start){
 	$.ajax({  
 		url:"https://api.douban.com/v2/book/search",  
 		dataType:'jsonp',  
-		data:{q: q, start: start, count: 6},  
+		data:{q: searchInfor, start: start, count: 6},  
 		// jsonp:'callback',  
 		success:function(result){
 			createPage(start/6, result.books);
@@ -131,10 +133,11 @@ function changePage(type){
 		pageNum++;
 		if(pageNum == allPageNum-1) $('.main .bb-nav-next').hide();
 		if(pageNum == 1) $('.main .bb-nav-prev').show();
-		console.info(pageNum);
+		// console.info(pageNum);
 		if(pageNum != allPageNum-1){
 			if($('#page'+(pageNum+1)).length == 0){
-				searchingBooks('django', pageNum*6+6);
+				// console.info('get')
+				searchingBooks(pageNum*6+6);
 			}
 		}
 	}else{
