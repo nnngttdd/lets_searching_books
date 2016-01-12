@@ -14,19 +14,34 @@ $('.main .bb-nav-next').click(function(event) {
 	changePage('add');
 });
 //中间 查询按钮
-$('#wrapperBtn').click(function(event) {
+$('#wrapperBtn').click(wrapperButton);
+$('#wrapperInput').keydown(function(event) {
+	if(event.keyCode==13){
+		wrapperButton();
+	}
+});
+//header 查询
+$('#headerInput').keydown(function(event) {
+	if(event.keyCode==13){
+		searchInfor = $('#headerInput').val();
+		if(searchInfor == '') return false;
+		searchingBooksFirst();
+	}
+});
+
+//中间查询按钮事件
+function wrapperButton(){
 	searchInfor = $('#wrapperInput').val();
 	if(searchInfor == '') return false;
 	$('.wrapper img').addClass('move');
 	$('#wrapperInput').attr('disabled', true);
 	$(this).attr('disabled', true);
 	searchingBooksFirst();
-});
-
+}
 //通过豆瓣api搜索图书
 //第一次查询
 function searchingBooksFirst(){
-	var pageNum = 0;
+	pageNum = 0;
 	$.ajax({  
 		url:"https://api.douban.com/v2/book/search",  
 		dataType:'jsonp',  
@@ -34,7 +49,7 @@ function searchingBooksFirst(){
 		// jsonp:'callback',  
 		success:function(result){
 			// console.info(result)
-			$('.myWindow').empty();
+			$('.myWindow').css({'left':'0px'}).empty();
 			$('.bb-custom-wrapper').remove();
 			allPageNum = Math.ceil(result.total/6);
 			// console.info(allPageNum)
@@ -43,6 +58,7 @@ function searchingBooksFirst(){
 			if($('.wrapper_after').length == 0){
 				$('.wrapper').addClass('wrapper_after');
 				$('.wrapper img').removeClass('move');
+				$('.header').removeClass('header_before');
 			}
 			if($('.after').length == 0){
 				$('.main').addClass('after').removeClass('begin');
