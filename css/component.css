@@ -125,7 +125,7 @@ body {
     /*color: rgba(100, 105, 106, 0.7);*/
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 0.65em;
+    font-size: 12px;
     line-height: 1.5;
 }
 
@@ -144,7 +144,7 @@ body {
 .bookshelf figcaption h2 {
     margin: 1em 0 0 0;
     font-weight: 300;
-    font-size: 0.8em;
+    font-size: 15px;
     font-family: "Abril Fatface", serif;
 }
 
@@ -156,7 +156,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 300;
-    font-size: 0.5em;
+    font-size: 12px;
     font-family: "Lato", sans-serif;
 }
 
@@ -437,7 +437,7 @@ body {
 .page-layout-3 p {
     margin: 0;
     text-indent: 5px;
-    font-style: italic;
+    /*font-style: italic;*/
     font-family: "Cardo", serif;
 }
 

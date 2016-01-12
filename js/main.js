@@ -3,7 +3,25 @@ var allPageNum = 0;
 var pageNum = 0;
 var searchInfor = '重逢';
 
-searchingBooksFirst('django')
+// searchingBooksFirst('django')
+//按钮事件
+//图书上一页
+$('.main .bb-nav-prev').click(function(event) {
+	changePage('minus');
+});
+//图书下一页
+$('.main .bb-nav-next').click(function(event) {
+	changePage('add');
+});
+//中间 查询按钮
+$('#wrapperBtn').click(function(event) {
+	searchInfor = $('#wrapperInput').val();
+	if(searchInfor == '') return false;
+	$('.wrapper img').addClass('move');
+	$('#wrapperInput').attr('disabled', true);
+	$(this).attr('disabled', true);
+	searchingBooksFirst();
+});
 
 //通过豆瓣api搜索图书
 //第一次查询
@@ -19,10 +37,16 @@ function searchingBooksFirst(){
 			$('.myWindow').empty();
 			$('.bb-custom-wrapper').remove();
 			allPageNum = Math.ceil(result.total/6);
-			console.info(allPageNum)
+			// console.info(allPageNum)
 			createPage(result.start, result.books);
 			readyPage();
-			$('.main').addClass('after').removeClass('begin');
+			if($('.wrapper_after').length == 0){
+				$('.wrapper').addClass('wrapper_after');
+				$('.wrapper img').removeClass('move');
+			}
+			if($('.after').length == 0){
+				$('.main').addClass('after').removeClass('begin');
+			}
 			if(allPageNum > 1){
 				searchingBooks(6);
 			}
@@ -119,13 +143,6 @@ function readyPage(){
 		$('.main .bb-nav-next').show();
 	}
 }
-
-$('.main .bb-nav-prev').click(function(event) {
-	changePage('minus');
-});
-$('.main .bb-nav-next').click(function(event) {
-	changePage('add');
-});
 
 //切换页码
 function changePage(type){
